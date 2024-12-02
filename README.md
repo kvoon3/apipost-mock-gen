@@ -16,7 +16,7 @@ apipost-mock-gen [input] --output <output> --parser <parser> --template <templat
 
 - apipost-markdown
 
-## templates
+## Templates
 
 - vite-plugin-mock
 
