@@ -1,7 +1,7 @@
 import type { GenerateOptions } from './types'
 import fs from 'node:fs'
+import { vitePluginMockHandler } from './handlers/vite-plugin-mock'
 import { apipostMarkdownParser } from './parser'
-import { vitePluginMockHandler } from './templates/vite-plugin-mock'
 
 export async function generate(options?: GenerateOptions): Promise<void> {
   const {
