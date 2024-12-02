@@ -12,8 +12,6 @@ export const vitePluginMockHandler: Handler = {
     return [
       '// @ts-ignore',
       '',
-      'import { isString } from \'@antfu/utils\'',
-      '',
       'export default [',
       ...ctxs.flatMap(({ url, res, req }) => {
         return [
@@ -45,7 +43,7 @@ export const vitePluginMockHandler: Handler = {
       '    const val2 = obj2[key as keyof typeof obj2]',
       '    ',
       '    if (typeof val1 !== typeof val2) {',
-      '      if(isString(val1) && val1 === \'\' && val2 !== \'\')',
+      '      if(typeof val1 === \'string\' && val1 === \'\' && val2 !== \'\')',
       '        return { errcode: 1, errmsg: `${key} is empty string` }',
       '      return { errcode: 1, errmsg: `Type mismatch for key: ${key}` }',
       '    }',
