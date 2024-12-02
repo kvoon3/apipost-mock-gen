@@ -5,7 +5,7 @@ Automatically generate mock api from [apipost](https://www.apipost.cn/apidoc/) e
 ## Usage
 
 ```sh
-ni -g apipost-mock-gen
+npm -g apipost-mock-gen
 ```
 
 ```sh
