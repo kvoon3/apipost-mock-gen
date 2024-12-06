@@ -1,12 +1,11 @@
 export interface ApiContext {
   url: string
-  req: string
-  res: string
+  request: string
+  response: string
 }
 
 export interface GenerateOptions {
-  input: string
-  output: string
+  content: string
   template: 'vite-plugin-mock'
   parser: 'apipost-markdown'
 }

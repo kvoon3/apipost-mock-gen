@@ -14,8 +14,8 @@ export const apipostMarkdownParser = {
       .use(remarkParse)
       .use(() => (tree) => {
         let url: any // string
-        let req: string
-        let res: string
+        let request: string
+        let response: string
 
         visit(tree, (node) => {
           const { value } = (node || { value: '' }) as any
@@ -35,20 +35,20 @@ export const apipostMarkdownParser = {
                 : 'unknown'
 
             if (type === 'request') {
-              req = value
+              request = value
             }
             else if (type === 'response') {
-              res = value
+              response = value
 
-              if (url && req && res) {
+              if (url && request && response) {
                 if (!whitelist.includes(url))
-                  ctxs.push({ url, req, res })
+                  ctxs.push({ url, request, response })
                 else
                   console.log(`[Skipped] url: ${url}`)
 
                 url = ''
-                req = '{}'
-                res = ''
+                request = '{}'
+                response = ''
               }
             }
           }

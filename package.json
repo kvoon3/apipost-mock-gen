@@ -44,7 +44,7 @@
     "prepublishOnly": "nr build",
     "release": "bumpp && npm publish",
     "start": "esno src/index.ts",
-    "cli": "esno src/cli.ts playground/input.md --output playground/output.ts",
+    "play": "esno src/cli.ts playground/input.md --output playground/output.ts",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks"
