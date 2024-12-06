@@ -16,16 +16,15 @@ export const vitePluginMockHandler: Handler = {
       'export default [',
       ...ctxs.flatMap(({ url, response, request }) => {
         return [
-          '{',
-          `  url: '${url}',`,
-          '  method: \'post\',',
-          '  response: (res: any) => {',
-          '    const { body = {} } = res',
-          // '    console.log(res)',
-          `    return Object.assign(${response}, check(body, ${request}))`,
-          `  }`,
-          '},',
-        ].map(i => i.padStart(2, ''))
+          '  {',
+          `    url: '${url}',`,
+          '    method: \'post\',',
+          '    response: (res: any) => {',
+          '      const { body = {} } = res',
+          `      return Object.assign(${response}, check(body, ${request}))`,
+          `    }`,
+          '  },',
+        ]
       }),
       '] as const',
       ...ctxs.flatMap(({ url, requestType, responseType }) => {

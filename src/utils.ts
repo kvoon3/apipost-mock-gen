@@ -5,7 +5,3 @@ export function pascalCase(input: string): string {
     })
     .replace(/\W+/g, '')
 }
-
-export function pad(count: number, input = ''): string {
-  return input.padStart(count)
-}

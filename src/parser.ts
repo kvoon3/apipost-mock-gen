@@ -39,12 +39,14 @@ export const apipostMarkdownParser = {
                 : 'unknown'
 
             if (type === 'request') {
-              request = value
-              requestType = typeInfer(parse(value))
+              const requestObject = parse(value)
+              request = JSON.stringify(requestObject)
+              requestType = typeInfer(requestObject)
             }
             else if (type === 'response') {
-              response = value
-              responseType = typeInfer(parse(value))
+              const responseObject = parse(value)
+              response = JSON.stringify(responseObject)
+              responseType = typeInfer(responseObject)
 
               if (url && request && response) {
                 if (!whitelist.includes(url))
