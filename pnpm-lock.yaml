@@ -8,9 +8,15 @@ importers:
 
   .:
     dependencies:
+      '@antfu/utils':
+        specifier: ^0.7.10
+        version: 0.7.10
       cac:
         specifier: ^6.7.14
         version: 6.7.14
+      jsonc-parser:
+        specifier: ^3.3.1
+        version: 3.3.1
       remark-parse:
         specifier: ^11.0.0
         version: 11.0.0
@@ -33,9 +39,6 @@ importers:
       '@antfu/ni':
         specifier: ^0.23.1
         version: 0.23.1
-      '@antfu/utils':
-        specifier: ^0.7.10
-        version: 0.7.10
       '@types/node':
         specifier: ^22.10.1
         version: 22.10.1
@@ -48,9 +51,6 @@ importers:
       esno:
         specifier: ^4.8.0
         version: 4.8.0
-      jsonc-parser:
-        specifier: ^3.3.1
-        version: 3.3.1
       lint-staged:
         specifier: ^15.2.10
         version: 15.2.10
