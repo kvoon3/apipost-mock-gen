@@ -1,5 +1,6 @@
 export interface ApiContext {
   url: string
+  method: string
   request: string
   response: string
   requestType: string

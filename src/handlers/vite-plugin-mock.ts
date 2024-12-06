@@ -14,11 +14,11 @@ export const vitePluginMockHandler: Handler = {
       '// @ts-ignore',
       '',
       'export default [',
-      ...ctxs.flatMap(({ url, response, request }) => {
+      ...ctxs.flatMap(({ url, method, response, request }) => {
         return [
           '  {',
           `    url: '${url}',`,
-          '    method: \'post\',',
+          `    method: \'${method}\',`,
           '    response: (res: any) => {',
           '      const { body = {} } = res',
           `      return Object.assign(${response}, check(body, ${request}))`,

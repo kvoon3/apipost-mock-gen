@@ -15,20 +15,43 @@ export const apipostMarkdownParser = {
     await unified()
       .use(remarkParse)
       .use(() => (tree) => {
-        let url: any // string
-        let request: string
-        let response: string
-        let requestType: string
-        let responseType: string
+        let url: any = '' // string
+        let method: string = ''
+        let request: string = '{}'
+        let response: string = '{}'
+        let requestType: string = '{}'
+        let responseType: string = '{}'
+
+        const reset = (): void => {
+          url = ''
+          method = ''
+          request = '{}'
+          response = '{}'
+          requestType = '{}'
+          responseType = '{}'
+        }
 
         visit(tree, (node) => {
           const { value } = (node || { value: '' }) as any
 
-          if (node.type === 'text'
-            && value.startsWith('http')
-          ) {
-            const { pathname } = parseURL(value)
-            url = pathname
+          if (node.type === 'text') {
+            if (value.startsWith('http')) {
+              const { pathname } = parseURL(value)
+              url = pathname
+            }
+
+            if ([
+              'GET',
+              'POST',
+              'PUT',
+              'DELETE',
+              'PATCH',
+              'HEAD',
+              'OPTIONS',
+              'TRACE',
+            ].includes(value)) {
+              method = value
+            }
           }
 
           if (node.type === 'code') {
@@ -50,13 +73,11 @@ export const apipostMarkdownParser = {
 
               if (url && request && response) {
                 if (!whitelist.includes(url))
-                  ctxs.push({ url, request, response, requestType, responseType })
+                  ctxs.push({ url, method, request, response, requestType, responseType })
                 else
                   console.log(`[Skipped] url: ${url}`)
 
-                url = ''
-                request = '{}'
-                response = ''
+                reset()
               }
             }
           }
