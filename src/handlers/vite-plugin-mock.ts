@@ -1,4 +1,5 @@
 import type { ApiContext } from '../types'
+import { pascalCase } from '../utils'
 
 interface Handler {
   name: string
@@ -13,7 +14,7 @@ export const vitePluginMockHandler: Handler = {
       '// @ts-ignore',
       '',
       'export default [',
-      ...ctxs.flatMap(({ url, res, req }) => {
+      ...ctxs.flatMap(({ url, response, request }) => {
         return [
           '{',
           `  url: '${url}',`,
@@ -21,12 +22,20 @@ export const vitePluginMockHandler: Handler = {
           '  response: (res: any) => {',
           '    const { body = {} } = res',
           // '    console.log(res)',
-          `    return Object.assign(${res}, check(body, ${req}))`,
+          `    return Object.assign(${response}, check(body, ${request}))`,
           `  }`,
           '},',
         ].map(i => i.padStart(2, ''))
       }),
       '] as const',
+      ...ctxs.flatMap(({ url, requestType, responseType }) => {
+        return [
+          '',
+          `export interface ${pascalCase(`${url.split('/').at(-1)}Payload`)} ${requestType}`,
+          '',
+          `export interface ${pascalCase(`${url.split('/').at(-1)}Model`)} ${responseType}`,
+        ]
+      }),
       '',
       'export function check(obj1: object, obj2: object) {',
       '  const keys = Object.keys(obj1);',

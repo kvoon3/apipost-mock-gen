@@ -2,6 +2,8 @@ export interface ApiContext {
   url: string
   request: string
   response: string
+  requestType: string
+  responseType: string
 }
 
 export interface GenerateOptions {

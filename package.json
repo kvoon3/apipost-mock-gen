@@ -13,7 +13,9 @@
     "url": "git+https://github.com/kvoon3/apipost-mock-gen.git"
   },
   "bugs": "https://github.com/kvoon3/apipost-mock-gen/issues",
-  "keywords": ["bin"],
+  "keywords": [
+    "bin"
+  ],
   "sideEffects": false,
   "exports": {
     ".": {
@@ -65,6 +67,7 @@
     "bumpp": "^9.8.1",
     "eslint": "^9.15.0",
     "esno": "^4.8.0",
+    "jsonc-parser": "^3.3.1",
     "lint-staged": "^15.2.10",
     "pnpm": "^9.14.3",
     "simple-git-hooks": "^2.11.1",

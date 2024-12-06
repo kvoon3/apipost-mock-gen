@@ -1,4 +1,6 @@
 import type { ApiContext } from './types'
+import { objectEntries } from '@antfu/utils'
+import { parse } from 'jsonc-parser'
 import remarkParse from 'remark-parse'
 import remarkStringify from 'remark-stringify'
 import { parseURL } from 'ufo'
@@ -16,6 +18,8 @@ export const apipostMarkdownParser = {
         let url: any // string
         let request: string
         let response: string
+        let requestType: string
+        let responseType: string
 
         visit(tree, (node) => {
           const { value } = (node || { value: '' }) as any
@@ -36,13 +40,15 @@ export const apipostMarkdownParser = {
 
             if (type === 'request') {
               request = value
+              requestType = typeInfer(parse(value))
             }
             else if (type === 'response') {
               response = value
+              responseType = typeInfer(parse(value))
 
               if (url && request && response) {
                 if (!whitelist.includes(url))
-                  ctxs.push({ url, request, response })
+                  ctxs.push({ url, request, response, requestType, responseType })
                 else
                   console.log(`[Skipped] url: ${url}`)
 
@@ -59,4 +65,26 @@ export const apipostMarkdownParser = {
 
     return ctxs
   },
+}
+
+function typeInfer(val: any, indent = 0): string {
+  const type = typeof val
+  if (type === 'object') {
+    if (Array.isArray(val)) {
+      return `Array<${Array.from(new Set(val.map(i => typeInfer(i, indent)))).join(' | ')}>`
+    }
+    else {
+      return [
+        `{`,
+        ...objectEntries(val)
+          .map(([key, value]): string => {
+            return `${String(key)}: ${typeInfer(value)};`
+          }),
+        `}`,
+      ].join(' ')
+    }
+  }
+  else {
+    return type
+  }
 }
