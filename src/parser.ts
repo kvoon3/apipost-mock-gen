@@ -1,5 +1,5 @@
 import type { ApiContext } from './types'
-import { objectEntries } from '@antfu/utils'
+import { isNull, objectEntries } from '@antfu/utils'
 import { parse } from 'jsonc-parser'
 import remarkParse from 'remark-parse'
 import remarkStringify from 'remark-stringify'
@@ -93,6 +93,9 @@ export const apipostMarkdownParser = {
 function typeInfer(val: any, indent = 0): string {
   const type = typeof val
   if (type === 'object') {
+    if (isNull(!val))
+      return 'null'
+
     if (Array.isArray(val)) {
       return `Array<${Array.from(new Set(val.map(i => typeInfer(i, indent)))).join(' | ')}>`
     }
