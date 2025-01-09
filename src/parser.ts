@@ -93,7 +93,7 @@ export const apipostMarkdownParser = {
 function typeInfer(val: any, indent = 0): string {
   const type = typeof val
   if (type === 'object') {
-    if (isNull(!val))
+    if (isNull(val))
       return 'null'
 
     if (Array.isArray(val)) {
